@@ -1,9 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <el-button @click="startHacking">Start</el-button>
-    </div>
+    <el-container>
+      <el-header>
+        <el-menu mode="horizontal" router>
+          <el-menu-item index="/managers">
+            Менеджеры
+          </el-menu-item>
+          <el-menu-item index="/orders">
+            Заказы
+          </el-menu-item>
+          <el-menu-item index="/orders/new">
+            Оформить заказ
+          </el-menu-item>
+          <el-menu-item index="4">
+            Войти
+          </el-menu-item>
+        </el-menu>
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
