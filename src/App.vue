@@ -17,7 +17,7 @@
           </el-menu-item>
         </el-menu>
       </el-header>
-      <el-main>
+      <el-main class="content">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -25,7 +25,10 @@
 </template>
 
 <script>
+import Managers from './components/Managers.vue'
+
 export default {
+  components: { Managers },
   methods: {
     startHacking () {
       this.$notify({
@@ -43,5 +46,9 @@ export default {
 #app {
   font-family: Helvetica, sans-serif;
   text-align: center;
+}
+
+.content {
+  text-align: left;
 }
 </style>
