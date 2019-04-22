@@ -113,6 +113,9 @@ export default {
     ]
   },
   getters: {
+    getAllOrders: state => {
+      return state.orders;
+    },
     getManagerOrders: state => id => {
       return state.orders.filter(e => {
         return e.managerId === id;

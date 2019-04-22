@@ -13,6 +13,15 @@
   </el-col>
   <el-col :span="18">
     <router-view></router-view>
+      
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <strong>Список заказов</strong>
+      </div>
+      <div>
+        <router-view name="orders"></router-view>
+      </div>
+    </el-card>
   </el-col>
 </el-row>
 </template>

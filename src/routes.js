@@ -10,8 +10,8 @@ export default [
     children: [
       {
         path: '',
-        component: Manager,
-        props: true
+        components: { default: Manager, orders: Orders },
+        props: { default: true, orders: false }
       }
     ]
   },

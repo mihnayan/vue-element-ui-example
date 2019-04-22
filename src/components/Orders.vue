@@ -21,11 +21,22 @@ export default {
       ]
     }
   },
-  created () {
-    let managerId = this.$store.getters.loggedManager;
-    if (managerId) {
-      this.orders = this.$store.getters.getManagerOrders(managerId);
+  methods: {
+    fetchOrders (managerId) {
+      if (managerId) {
+        this.orders = this.$store.getters.getManagerOrders(managerId);
+      } else {
+        this.orders = this.$store.getters.getAllOrders;
+      }
     }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.fetchOrders(to.params.id);
+    }
+  },
+  created () {
+    this.fetchOrders(this.$route.params.id);
   }
 }
 </script>
