@@ -11,24 +11,28 @@
 
 <script>
 export default {
+  props: [
+    'id'
+  ],
   data: function () {
     return {
       manager: null
     }
-  },
+  },  
   methods: {
-    fetchManagerInfo: function (id) {
-      console.dir(this.$store);
+    fetchManagerInfo: function () {
+      let id = this.id || this.$store.state.managers.loggedManager;
       this.manager = this.$store.getters.getManagerInfo(id);
     }
   },
   watch: {
     '$route' (to, from) {
-      this.fetchManagerInfo(to.params.id);
+      this.id = to.params.id;
+      this.fetchManagerInfo();
     }
   },
   created: function () {
-    this.fetchManagerInfo(this.$route.params.id);
+    this.fetchManagerInfo();
   }
 }
 </script>

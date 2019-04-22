@@ -25,10 +25,16 @@ export default {
         lastName: "Разбойник",
         specialization: "Грабить всех подряд на дороге"
       }
-    ]
+    ],
+    loggedManager: null
   },
   mutations: {
-
+    login (state, managerId) {
+      state.loggedManager = managerId;
+    },
+    logout (state) {
+      state.loggedManager = null;
+    }
   },
   actions: {
 

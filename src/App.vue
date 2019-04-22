@@ -12,8 +12,11 @@
           <el-menu-item index="/orders/new">
             Оформить заказ
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item v-if="loggedInfo === null" index="/login" class="username">
             Войти
+          </el-menu-item>
+          <el-menu-item v-else index="/profile" class="username">
+            {{ loggedInfo.firstName }} {{ loggedInfo.lastName }}
           </el-menu-item>
         </el-menu>
       </el-header>
@@ -29,14 +32,11 @@ import Managers from './components/Managers.vue'
 
 export default {
   components: { Managers },
-  methods: {
-    startHacking () {
-      this.$notify({
-        title: 'It works!',
-        type: 'success',
-        message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
-        duration: 5000
-      })
+  computed: {
+    loggedInfo () {
+      let id = this.$store.state.managers.loggedManager;
+      if (id === null) return id;
+      return this.$store.getters.getManagerInfo(id);
     }
   }
 }
@@ -47,8 +47,10 @@ export default {
   font-family: Helvetica, sans-serif;
   text-align: center;
 }
-
 .content {
   text-align: left;
+}
+.username {
+  font-weight: bold;
 }
 </style>
