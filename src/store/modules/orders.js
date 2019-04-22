@@ -111,5 +111,12 @@ export default {
         status: "Заказ отправлен"
       }
     ]
+  },
+  getters: {
+    getManagerOrders: state => id => {
+      return state.orders.filter(e => {
+        return e.managerId === id;
+      })
+    }
   }
 }

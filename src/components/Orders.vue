@@ -12,11 +12,20 @@
 export default {
   data: function () {
     return {
-      orders: null
+      orders: [
+        {
+          name: '',
+          cost: '',
+          status: ''
+        }
+      ]
     }
   },
   created: function () {
-    this.orders = this.$store.state.orders.orders;
+    let managerId = this.$store.getters.loggedManager;
+    if (managerId) {
+      this.orders = this.$store.getters.getManagerOrders(managerId);
+    }
   }
 }
 </script>

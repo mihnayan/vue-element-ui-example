@@ -44,6 +44,9 @@ export default {
       return state.managers.find(v => {
         return v.id == id;
       });
+    },
+    loggedManager: state => {
+      return state.loggedManager;
     }
   }
 }
