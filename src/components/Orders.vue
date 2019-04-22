@@ -2,6 +2,7 @@
   <el-table
       :data="orders"
       :default-sort="{prop: 'cost', order: 'descending'}">
+    <el-table-column v-if="!managerId" prop="managerName" label="Менеджер" sortable></el-table-column>
     <el-table-column prop="name" label="Заказ" sortable></el-table-column>
     <el-table-column prop="cost" label="Стоимость" sortable></el-table-column>
     <el-table-column prop="status" label="Статус заказа"></el-table-column>
@@ -12,6 +13,7 @@
 export default {
   data () {
     return {
+      managerId: null,
       orders: [
         {
           name: '',
@@ -22,21 +24,35 @@ export default {
     }
   },
   methods: {
-    fetchOrders (managerId) {
-      if (managerId) {
-        this.orders = this.$store.getters.getManagerOrders(managerId);
+    fetchOrders () {
+      if (this.managerId) {
+        this.$store.getters.getManagerOrders(this.managerId)
+            .then(data => {
+              this.orders = data;
+            })
       } else {
-        this.orders = this.$store.getters.getAllOrders;
+        let managersWithOrders = this.$store.getters.getAllManagersWithOrders
+            .then(data => {
+              data.forEach(m => {
+                let managerName = m.firstName + ' ' + m.lastName;
+                m.orders.forEach(o => {
+                  o.managerName = managerName;
+                  this.orders.push(o);
+                })
+              })
+            });
       }
     }
   },
   watch: {
     '$route' (to, from) {
-      this.fetchOrders(to.params.id);
+      this.managerId = to.params.id;
+      this.fetchOrders();
     }
   },
   created () {
-    this.fetchOrders(this.$route.params.id);
+    this.managerId = this.$route.params.id;
+    this.fetchOrders();
   }
 }
 </script>

@@ -113,12 +113,12 @@ export default {
     ]
   },
   getters: {
-    getAllOrders: state => {
-      return state.orders;
-    },
     getManagerOrders: state => id => {
-      return state.orders.filter(e => {
-        return e.managerId === id;
+      return new Promise(res => {
+        let data = state.orders.filter(o => {
+          return o.managerId === id;
+        });
+        res(data);
       })
     }
   }
