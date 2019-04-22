@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  data: function () {
+  data () {
     return {
       orders: [
         {
@@ -21,7 +21,7 @@ export default {
       ]
     }
   },
-  created: function () {
+  created () {
     let managerId = this.$store.getters.loggedManager;
     if (managerId) {
       this.orders = this.$store.getters.getManagerOrders(managerId);

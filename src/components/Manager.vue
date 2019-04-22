@@ -20,7 +20,7 @@ export default {
     }
   },  
   methods: {
-    fetchManagerInfo: function () {
+    fetchManagerInfo () {
       let id = this.id || this.$store.state.managers.loggedManager;
       this.manager = this.$store.getters.getManagerInfo(id);
     }
@@ -31,7 +31,7 @@ export default {
       this.fetchManagerInfo();
     }
   },
-  created: function () {
+  created () {
     this.fetchManagerInfo();
   }
 }

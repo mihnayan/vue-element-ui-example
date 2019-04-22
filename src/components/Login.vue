@@ -19,6 +19,7 @@ export default {
   watch: {
     'managerId' (value) {
       this.$store.commit('login', value);
+      this.$router.push('/profile');
     }
   }
 }
