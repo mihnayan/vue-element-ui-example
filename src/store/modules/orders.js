@@ -112,6 +112,21 @@ export default {
       }
     ]
   },
+  mutations: {
+    createOrder (state, order) {
+      state.orders.push(order);
+    }
+  },
+  actions: {
+    createOrder (context, order) {
+      return new Promise((resolve, reject) => {
+        if (!order.managerId) reject('Менеджер не указан!');
+        order.status = "Принят к оформлению";
+        context.commit('createOrder', order);
+        resolve(order);
+      })
+    }
+  },
   getters: {
     getManagerOrders: state => id => {
       return new Promise(res => {
