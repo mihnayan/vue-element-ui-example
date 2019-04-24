@@ -36,8 +36,15 @@ export default {
     loggedInfo () {
       let id = this.$store.state.managers.loggedManager;
       if (id === null) return id;
-      return this.$store.getters.getManagerInfo(id);
+      return this.$store.getters.manager(id);
     }
+  },
+  created () {
+    Promise.all([
+      this.$store.dispatch('loadOrders'),
+      this.$store.dispatch('loadManagers')])
+      .then(result => console.info(result))
+      .catch(error => console.error(error));
   }
 }
 </script>

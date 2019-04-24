@@ -1,34 +1,14 @@
+import managersDb from '../mock_db/mock_managers.js'
+
 export default {
   state: {
-    managers: [
-      {
-        id: "1",
-        firstName: "Илья",
-        lastName: "Муромец",
-        specialization: "Защита города Муром"
-      },
-      {
-        id: "2",
-        firstName: "Алеша",
-        lastName: "Попович",
-        specialization: "Защищать слабых"
-      },
-      {
-        id: "3",
-        firstName: "Добрыня",
-        lastName: "Никитич",
-        specialization: "Защищать слабых, помогать бедным"
-      },
-      {
-        id: "4",
-        firstName: "Соловей",
-        lastName: "Разбойник",
-        specialization: "Грабить всех подряд на дороге"
-      }
-    ],
+    allManagers: [],
     loggedManager: null
   },
   mutations: {
+    setManagers (state, managers) {
+      state.allManagers = managers;
+    },
     login (state, managerId) {
       state.loggedManager = managerId;
     },
@@ -37,13 +17,18 @@ export default {
     }
   },
   actions: {
-
+    loadManagers (context) {
+      const isError = false;
+      return new Promise((resolve, reject) => {
+        if (isError) reject('error');
+        context.commit('setManagers', managersDb);
+        resolve('managers loaded')
+      })
+    }
   },
   getters: {
-    getManagerInfo: state => id => {
-      return state.managers.find(v => {
-        return v.id == id;
-      });
+    manager: state => id => {
+      return state.allManagers.find(v => v.id == id);
     },
     loggedManager: state => {
       return state.loggedManager;

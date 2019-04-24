@@ -1,7 +1,7 @@
 <template>
   <el-select placeholder="Выбрать пользователя" v-model="managerId">
     <el-option
-      v-for="manager in $store.state.managers.managers"
+      v-for="manager in $store.state.managers.allManagers"
       :key="manager.id"
       :label="manager.firstName + ' ' + manager.lastName"
       :value="manager.id">

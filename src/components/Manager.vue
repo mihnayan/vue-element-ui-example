@@ -20,19 +20,19 @@ export default {
     }
   },  
   methods: {
-    fetchManagerInfo () {
+    updateManager () {
       let id = this.id || this.$store.state.managers.loggedManager;
-      this.manager = this.$store.getters.getManagerInfo(id);
+      this.manager = this.$store.getters.manager(id);
     }
   },
   watch: {
     '$route' (to, from) {
       this.id = to.params.id;
-      this.fetchManagerInfo();
+      this.updateManager();
     }
   },
   created () {
-    this.fetchManagerInfo();
+    this.updateManager();
   }
 }
 </script>

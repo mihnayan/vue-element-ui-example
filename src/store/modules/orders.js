@@ -1,140 +1,63 @@
+import ordersDb from '../mock_db/mock_orders.js'
+
 export default {
   state: {
-    orders: [
-      {
-        managerId: "1",
-        name: "Кольчуга",
-        cost: 980,
-        status: "Доставлено"
-      },
-      {
-        managerId: "1",
-        name: "Шлем",
-        cost: 1050,
-        status: "Доставлено"
-      },
-      {
-        managerId: "1",
-        name: "Конь",
-        cost: 19870,
-        status: "В работе"
-      },
-      {
-        managerId: "1",
-        name: "Меч",
-        cost: 2500,
-        status: "Заказ отправлен"
-      },
-      {
-        managerId: "2",
-        name: "Кольчуга",
-        cost: 980,
-        status: "Доставлено"
-      },
-      {
-        managerId: "2",
-        name: "Шлем",
-        cost: 1050,
-        status: "Доставлено"
-      },
-      {
-        managerId: "2",
-        name: "Конь",
-        cost: 19870,
-        status: "Доставлено"
-      },
-      {
-        managerId: "2",
-        name: "Меч",
-        cost: 2500,
-        status: "В работе"
-      },
-      {
-        managerId: "2",
-        name: "Картошка, печённая в углях",
-        cost: 70,
-        status: "Заказ отправлен"
-      },
-      {
-        managerId: "3",
-        name: "Кольчуга",
-        cost: 980,
-        status: "Доставлено"
-      },
-      ,
-      {
-        managerId: "3",
-        name: "Шлем",
-        cost: 1050,
-        status: "Доставлено"
-      },
-      {
-        managerId: "3",
-        name: "Конь",
-        cost: 19870,
-        status: "В работе"
-      },
-      {
-        managerId: "3",
-        name: "Меч",
-        cost: 2500,
-        status: "В работе"
-      },
-      {
-        managerId: "4",
-        name: "Конь",
-        cost: 19870,
-        status: "В работе"
-      },
-      {
-        managerId: "4",
-        name: "Новый свистящий зуб",
-        cost: 1590,
-        status: "Заказ отклонён"
-      },
-      {
-        managerId: "4",
-        name: "Булава",
-        cost: 1250,
-        status: "Доставлено"
-      },
-      {
-        managerId: "4",
-        name: "Штаны",
-        cost: 220,
-        status: "Доставлено"
-      },
-      {
-        managerId: "4",
-        name: "Цыплёнок на вертеле",
-        cost: 140,
-        status: "Заказ отправлен"
-      }
-    ]
+    allOrders: [],
+    managerOrders: []
   },
   mutations: {
-    createOrder (state, order) {
-      state.orders.push(order);
-    }
+    setOrders (state, orders) {
+      state.allOrders = orders;
+    },
+    setManagerOrders (state, managerId) {
+      state.managerOrders = state.allOrders.filter(o => {
+        return o.managerId === managerId;
+      });
+    },
   },
   actions: {
+    loadOrders (context) {
+      const isError = false;
+      return new Promise((resolve, reject) => {
+        if (isError) reject('error');
+        let orders = [];
+        for (let key in ordersDb) {
+          let order = ordersDb[key];
+          order.id = key;
+          orders.push(order);
+        }
+        context.commit('setOrders', orders);
+        resolve('orders loaded')
+      })
+    },
     createOrder (context, order) {
       return new Promise((resolve, reject) => {
         if (!order.managerId) reject('Менеджер не указан!');
         order.status = "Принят к оформлению";
-        context.commit('createOrder', order);
-        resolve(order);
+        let iDs = Object.keys(ordersDb);
+        let maxId = iDs.reduce((acc, current) => {
+          return Math.max(acc, Number.parseInt(current));
+        }, 0);
+        ordersDb[++maxId] = order;
+        return resolve();
+      }).then(() => {
+        return context.dispatch('loadOrders').then(() => {
+          return Promise.resolve(order);
+        })
       })
+    },
+    deleteOrder (context, orderId) {
+      const isError = false;
+      return new Promise((resolve, reject) => {
+        if (isError) reject('error');
+        delete ordersDb[orderId];
+        return resolve('Order #' + orderId + ' was deleted');
+      }).then(() => {
+        return context.dispatch('loadOrders');
+      });
     }
   },
   getters: {
-    getManagerOrders: state => id => {
-      return new Promise(res => {
-        let data = state.orders.filter(o => {
-          return o.managerId === id;
-        });
-        res(data);
-      })
-    }
+
   }
 }
