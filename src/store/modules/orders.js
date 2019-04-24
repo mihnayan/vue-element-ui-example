@@ -1,4 +1,4 @@
-import ordersDb from '../mock_db/mock_orders.js'
+import {managersDb, ordersDb} from '../mock_db.js'
 
 export default {
   state: {
@@ -24,6 +24,8 @@ export default {
         for (let key in ordersDb) {
           let order = ordersDb[key];
           order.id = key;
+          let manager = managersDb[order.managerId];
+          order.managerName = [manager.firstName, manager.lastName].join(' ');
           orders.push(order);
         }
         context.commit('setOrders', orders);

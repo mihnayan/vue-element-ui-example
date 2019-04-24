@@ -2,7 +2,7 @@
   <el-table
       :data="orders"
       :default-sort="{prop: 'cost', order: 'descending'}">
-    <el-table-column v-if="!managerId" :formatter="managerName" label="Менеджер" sortable></el-table-column>
+    <el-table-column v-if="!managerId" prop="managerName" label="Менеджер" sortable></el-table-column>
     <el-table-column prop="id" label="№ заказа"></el-table-column>
     <el-table-column prop="name" label="Заказ" sortable></el-table-column>
     <el-table-column prop="cost" label="Стоимость" sortable></el-table-column>
@@ -33,10 +33,6 @@ export default {
     }
   },
   methods: {
-    managerName (row, column) {
-      let manager = this.$store.getters.manager(row.managerId);
-      return [manager.firstName, manager.lastName].join(' ');
-    },
     updateOrders () {
       if (this.managerId) {
         this.$store.commit('setManagerOrders', this.managerId);

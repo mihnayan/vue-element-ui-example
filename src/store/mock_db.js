@@ -1,4 +1,27 @@
-export default {
+export const managersDb = {
+  "1": {
+      firstName: "Илья",
+      lastName: "Муромец",
+      specialization: "Защита города Муром"
+    },
+  "2": {
+      firstName: "Алеша",
+      lastName: "Попович",
+      specialization: "Защищать слабых"
+    },
+  "3": {
+      firstName: "Добрыня",
+      lastName: "Никитич",
+      specialization: "Защищать слабых, помогать бедным"
+    },
+  "4": {
+      firstName: "Соловей",
+      lastName: "Разбойник",
+      specialization: "Грабить всех подряд на дороге"
+    }
+};
+
+export const ordersDb = {
   "1": {
       managerId: "1",
       name: "Кольчуга",

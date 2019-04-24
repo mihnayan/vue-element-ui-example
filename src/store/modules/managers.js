@@ -1,4 +1,4 @@
-import managersDb from '../mock_db/mock_managers.js'
+import {managersDb} from '../mock_db.js'
 
 export default {
   state: {
@@ -21,7 +21,13 @@ export default {
       const isError = false;
       return new Promise((resolve, reject) => {
         if (isError) reject('error');
-        context.commit('setManagers', managersDb);
+        let managers = [];
+        for (let key in managersDb) {
+          let manager = managersDb[key];
+          manager.id = key;
+          managers.push(manager);
+        }
+        context.commit('setManagers', managers);
         resolve('managers loaded')
       })
     }
