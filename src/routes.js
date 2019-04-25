@@ -4,6 +4,7 @@ import Orders from './components/Orders'
 import Order from './components/Order'
 import Login from './components/Login'
 import Profile from './components/Profile'
+import PageNotFound from './components/PageNotFound'
 
 export default [
   { path: '/managers/:id', component: Managers,
@@ -26,5 +27,6 @@ export default [
         component: Manager
       }
     ]
-  }
+  },
+  { path: '*', component: PageNotFound }
 ]
