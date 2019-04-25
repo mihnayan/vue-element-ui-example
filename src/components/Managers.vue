@@ -18,7 +18,7 @@
         title="Выберите менеджера для отображения информации">
     </el-alert>
 
-    <router-view></router-view>
+    <router-view v-if="managerSelected"></router-view>
     <div>&nbsp;</div>
     <el-card class="box-card" v-if="managerSelected">
       <div slot="header" class="clearfix">
@@ -41,7 +41,8 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.managerSelected = to.params.id;
+      let managerId = to.params.id;
+      this.managerSelected = managerId && this.$store.getters.manager(managerId);
     }
   }
 }

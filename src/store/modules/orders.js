@@ -10,9 +10,7 @@ export default {
       state.allOrders = orders;
     },
     setManagerOrders (state, managerId) {
-      state.managerOrders = state.allOrders.filter(o => {
-        return o.managerId === managerId;
-      });
+      state.managerOrders = state.allOrders.filter(o => o.managerId === managerId);
     },
   },
   actions: {
