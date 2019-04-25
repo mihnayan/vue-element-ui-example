@@ -45,6 +45,7 @@ export default {
       this.$store.dispatch('loadManagers')])
       .then(result => console.info(result))
       .catch(error => console.error(error));
+    this.$router.replace('/managers');
   }
 }
 </script>
