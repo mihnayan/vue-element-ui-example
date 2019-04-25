@@ -4,7 +4,12 @@
       <strong>{{ manager.firstName }} {{ manager.lastName}}</strong>
     </div>
     <div>
-      {{ manager.specialization }}
+      <p>
+        <strong>Миссия: </strong>{{ manager.specialization }}
+      </p>
+      <p>
+        <strong>Всего заказов: {{ $store.getters.managerOrdersCount(manager.id) }}</strong>
+      </p>
     </div>
   </el-card>
 </template>

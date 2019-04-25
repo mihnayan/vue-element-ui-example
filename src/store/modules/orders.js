@@ -60,6 +60,8 @@ export default {
     }
   },
   getters: {
-
+    managerOrdersCount: state => id => {
+      return state.allOrders.filter(o => o.managerId === id).length;
+    }
   }
 }

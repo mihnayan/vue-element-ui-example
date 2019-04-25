@@ -1,5 +1,10 @@
 <template>
+<div>
+  <div class="no-orders" v-if="orders.length === 0">
+    Заказы отсутствуют.
+  </div>
   <el-table
+      v-if="orders.length > 0"
       :data="orders"
       :default-sort="{prop: 'cost', order: 'descending'}">
     <el-table-column v-if="!managerId" prop="managerName" label="Менеджер" sortable></el-table-column>
@@ -12,10 +17,11 @@
         <el-button
           size="mini"
           type="danger"
-          @click="deleteOrder(scope.$index, scope.row)">Delete</el-button>
+          @click="deleteOrder(scope.$index, scope.row)">Удалить</el-button>
       </template>
     </el-table-column>
   </el-table>
+</div>
 </template>
 
 <script>

@@ -18,7 +18,12 @@ export const managersDb = {
       firstName: "Соловей",
       lastName: "Разбойник",
       specialization: "Грабить всех подряд на дороге"
-    }
+    },
+  "5": {
+      firstName: "Иван",
+      lastName: "Дурак",
+      specialization: "Лежать на печи"
+  }
 };
 
 export const ordersDb = {

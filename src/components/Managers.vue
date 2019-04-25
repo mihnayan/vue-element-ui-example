@@ -1,5 +1,5 @@
 <template>
-<el-row>
+<el-row :gutter="10">
   <el-col :span="6">
     <el-menu router>
       <el-menu-item
@@ -12,9 +12,15 @@
     </el-menu>
   </el-col>
   <el-col :span="18">
-    <router-view></router-view>
+    <el-alert
+        v-if="!managerSelected"
+        type="info"
+        title="Выберите менеджера для отображения информации">
+    </el-alert>
 
-    <el-card class="box-card">
+    <router-view></router-view>
+    <div>&nbsp;</div>
+    <el-card class="box-card" v-if="managerSelected">
       <div slot="header" class="clearfix">
         <strong>Список заказов</strong>
       </div>
@@ -28,7 +34,16 @@
 
 <script>
 export default {
-    
+  data () {
+    return {
+      managerSelected: false
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.managerSelected = to.params.id;
+    }
+  }
 }
 </script>
 
